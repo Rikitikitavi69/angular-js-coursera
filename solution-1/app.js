@@ -21,8 +21,8 @@
 
     function getMessage(num) {
         
-        if (num = 0) {
-            return "";
+        if (num === 0) {
+            return "Please enter data first";
         } else if (num > 3) {
             return "Too much!";
         } else {
