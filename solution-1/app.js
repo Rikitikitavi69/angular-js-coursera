@@ -13,16 +13,16 @@
         }
     }
     function countDishes(dishes) {
-        if (dishes === undefined) {
+        if (dishes === undefined || dishes === '') {
             return 0
         }
         return dishes.split(',').length;
     }   
 
     function getMessage(num) {
-        
+        console.log(num);
         if (num === 0) {
-            return "Please enter data first";
+            return 'Please enter data first';
         }
         if (num <= 3) {
             return "Enjoy!";
