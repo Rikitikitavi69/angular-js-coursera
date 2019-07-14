@@ -20,12 +20,13 @@
     }   
 
     function getMessage(num) {
-        if (num <= 3) {
-            return "Enjoy!";
+        
+        if (num <= 0) {
+            return "";
         } else if (num > 3) {
             return "Too much!";
         } else {
-            return "";
+            return "Enjoy!";
         }
     }
 
