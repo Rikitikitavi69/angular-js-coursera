@@ -23,10 +23,11 @@
         
         if (num === 0) {
             return "Please enter data first";
-        } else if (num > 3) {
-            return "Too much!";
-        } else {
+        }
+        if (num <= 3) {
             return "Enjoy!";
+        } else {
+            return "Too much!";
         }
     }
 
