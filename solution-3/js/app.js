@@ -16,14 +16,14 @@
                 onRemove: '&'
             },
             controller: FoundItemsDirectiveController,
-            controllerAs: 'items',
+            controllerAs: 'list',
             bindToController: true
         };
         return ddo;
     }
 
     function FoundItemsDirectiveController() {
-        var items = this;
+        var list = this;
       }
 
 
