@@ -8,3 +8,12 @@
 </ul>
 
 </div>
+<div class="items">
+    <br>
+    <div ng-repeat="item in found.items">
+        <button ng-click="found.onRemove({id: $index});">Don't want this one!</button>
+        <span><strong>Name:</strong> {{item.name}}, <i>{{item.short_name}}</i></span>
+        <span><strong>Description:</strong>{{item.description}}</span>
+    </div>
+    <div class="error" ng-hide="found.items.length">Nothing found</div>
+</div>

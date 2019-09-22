@@ -45,18 +45,18 @@
                 method: "GET",
                 url: (ApiBasePath + "/menu_items.json")
             });
-
-            return response.then(function (result) {
-                foundItems = [];
+            foundItems = [];
+            response.then(function (result) {
+                
                 var menuItems = result.data.menu_items;
                 for (var i = 0; i < menuItems.length; i++) {
                     var description = menuItems[i].description;
                     if (description.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1) {
                         foundItems.push(menuItems[i]);
                     }
-                }
-                return foundItems;
+                }    
             });
+            return foundItems;
         };
     }
     
