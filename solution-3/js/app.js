@@ -15,6 +15,9 @@
                 items: '<',
                 onRemove: '&'
             },
+            controller: FoundedItemController,
+            controllerAs: 'list',
+            bindToController: true
         };
         return items_directive;
     }
