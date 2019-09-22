@@ -63,6 +63,7 @@
 
     function foundItemsDirective() {
         var items_directive = {
+            Restrict: 'E',
             templateUrl: 'itemsloader.html',
             scope: {
                 items: '<',
