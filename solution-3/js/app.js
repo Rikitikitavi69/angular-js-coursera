@@ -26,26 +26,28 @@
 
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
-        var ctrl = this;
-        ctrl.found = [];
-
-        ctrl.search = function() {
-            ctrl.found = [];
-
-            MenuSearchService.getMatchedMenuItems(ctrl.searchTerm)
-            .then(function(result) {
-                ctrl.found = result;
-            }
-            ).catch(function(error) { 
-                console.log(error); 
-            });
-        };
-
-        ctrl.removeItem = function(index) {
-            ctrl.found.splice(index, 1);
+      var ctrl = this;
+  
+      ctrl.searchTerm = "";
+  
+      ctrl.search = function() {
+        if (ctrl.searchTerm === "") {
+          ctrl.items = [];
+          return;
+        }
+        var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
+        promise.then(function(response) {
+          ctrl.items = response;
+        })
+        .catch(function(error) {
+          console.log("Something went wrong", error);
+        });
+      };
+  
+      ctrl.removeItem = function(index) {
+        ctrl.items.splice(index, 1);
       };
     }
-
 
     MenuSearchService.$inject = ['$http', 'ApiBasePath'];
     function MenuSearchService($http, ApiBasePath) {
