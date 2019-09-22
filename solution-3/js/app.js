@@ -57,10 +57,8 @@
                 foundItems: '<',
                 onRemove: '&'
             },
-            controller: function() {
-
-            },
-            controllerAs: 'foundItemsCtrl',
+            controller: NarrowItDownController,
+            controllerAs: 'narrowItDown',
             bindToController: true
         };
     }
