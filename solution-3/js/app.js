@@ -10,26 +10,26 @@
 
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
-      var narrowItDown = this;
-      narrowItDown.searchTerm = "";
-      narrowItDown.found = [];
-      narrowItDown.search = function() {
-        if (narrowItDown.searchTerm === "") {
-            narrowItDown.found = [];
+      var menuSearch = this;
+      menuSearch.searchTerm = "";
+      menuSearch.found = [];
+      menuSearch.search = function() {
+        if (menuSearch.searchTerm === "") {
+            menuSearch.found = [];
             return;
           }
-          var promise = MenuSearchService.getMatchedMenuItems(narrowItDown.searchTerm);
+          var promise = MenuSearchService.getMatchedMenuItems(menuSearch.searchTerm);
     
           promise.then(function(response) {
-            narrowItDown.found = response;
+            menuSearch.found = response;
           }).catch(function (error) { console.log(error); });
         }
     
-      narrowItDown.removeItem = function(itemIndex) {
+      menuSearch.removeItem = function(itemIndex) {
         MenuSearchService.removeItem(itemIndex);
       };
 
-      narrowItDown.removeItem = function(index) {
+      menuSearch.removeItem = function(index) {
         controller.items.splice(index, 1);
       };
     }
@@ -71,7 +71,7 @@
                 onRemove: '&'
             },
             controller: NarrowItDownController,
-            controllerAs: 'list',
+            controllerAs: 'ctrl',
             bindToController: true
         };
         return items_directive;
