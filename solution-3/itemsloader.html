@@ -1,12 +1,8 @@
-  
 <h3>Menu Search Results</h3>
-
+<div ng-if="items.isEmpty()">Nothing found</div>
 <ul>
-  <li ng-repeat="item in items.found">{{item.name}}, {{item.short_name}}, {{item.description}}
-    <button class="btn btn-default" ng-click="items.onRemove({index: $index});">
-      <span class="glyphicon glyphicon-ok"></span> Don't want this one!
-    </button>
+  <li ng-repeat="item in items.found">
+    {{item.name}}, {{item.short_name}}, {{item.description}}
+    <button ng-click="items.onRemove({index: $index});">Don't want this one!</button>
   </li>
 </ul>
-
-<p class="text-danger" ng-if="items.found.length === 0">Nothing found</p>
