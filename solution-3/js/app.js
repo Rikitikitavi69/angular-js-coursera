@@ -65,7 +65,7 @@
     
 
     function foundItemsDirective() {
-        return {
+        var items_directive = {
             templateUrl: 'itemsloader.html',
             scope: {
                 items: '<',
@@ -75,10 +75,7 @@
             controllerAs: 'list',
             bindToController: true
         };
-    }
-    function NarrowItDownController() {
-        var list = this;
-
+        return items_directive;
     }
 
 })();
