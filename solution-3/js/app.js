@@ -70,7 +70,7 @@
                 onRemove: '&'
             },
             controller: NarrowItDownController,
-            controllerAs: 'ctrl',
+            controllerAs: 'found',
             bindToController: true
         };
         return items_directive;
