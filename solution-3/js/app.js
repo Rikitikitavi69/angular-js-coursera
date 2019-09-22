@@ -69,11 +69,11 @@
             restrict: 'E',
             templateUrl: 'itemsloader.html',
             scope: {
-                foundItems: '<',
+                items: '<',
                 onRemove: '&'
             },
             controller: NarrowItDownController,
-            controllerAs: 'narrowItDown',
+            controllerAs: 'list',
             bindToController: true
         };
     }

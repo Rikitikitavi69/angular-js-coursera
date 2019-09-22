@@ -1,7 +1,9 @@
-<ul>
-  <li ng-repeat="item in narrowItDown.found">{{item.name}}, {{item.short_name}}, {{item.description}}
-    <button class="btn btn-default" ng-click="narrowItDown.onRemove({index: $index});">
-      <span class="glyphicon glyphicon-ok"></span> Don't want this one!
-    </button>
-  </li>
-</ul>
+
+</br>
+<h3 ng-if='list.items.length > 0'> {{list.items.length}} items Found  </h3>
+<table>
+  <tr ng-repeat="item in list.items">
+      <td>{{ item.short_name }}</td> <td>{{ item.name }}</td> <td>{{ item.description }}</td> 
+    <td><button ng-click="list.onRemove({index: $index});">Don't want this one!</button></td>
+  </tr>
+</table>
