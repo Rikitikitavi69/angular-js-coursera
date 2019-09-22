@@ -51,7 +51,7 @@
 
     function foundItemsDirective() {
         return {
-            restrict: 'E',
+            // restrict: 'E',
             templateUrl: 'loader/itemsloaderindicator.template.html',
             scope: {
                 foundItems: '<',
