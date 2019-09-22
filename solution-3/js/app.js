@@ -31,7 +31,6 @@
         ctrl.found = [];
 
         ctrl.search = function() {
-            isPresented = true;
             ctrl.found = [];
 
             MenuSearchService.getMatchedMenuItems(ctrl.searchTerm)
