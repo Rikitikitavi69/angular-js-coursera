@@ -59,7 +59,7 @@
     function foundItemsDirective() {
         return {
             restrict: 'E',
-            templateUrl: 'loader/itemsloaderindicator.template.html',
+            templateUrl: 'itemsloader.html',
             scope: {
                 foundItems: '<',
                 onRemove: '&'
