@@ -39,7 +39,7 @@
             });
 
             return response.then(function (result) {
-                var foundItems = [];
+                foundItems = [];
                 var menuItems = result.data.menu_items;
                 for (var i = 0; i < menuItems.length; i++) {
                     var description = menuItems[i].description;
