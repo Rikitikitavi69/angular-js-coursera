@@ -10,26 +10,26 @@
 
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
-      var menuSearch = this;
-      menuSearch.searchTerm = "";
-      menuSearch.found = [];
-      menuSearch.search = function() {
-        if (menuSearch.searchTerm === "") {
-            menuSearch.found = [];
+      var ctrl = this;
+      ctrl.searchTerm = "";
+      ctrl.found = [];
+      ctrl.search = function() {
+        if (ctrl.searchTerm === "") {
+            ctrl.found = [];
             return;
           }
-          var promise = MenuSearchService.getMatchedMenuItems(menuSearch.searchTerm);
+          var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
     
           promise.then(function(response) {
-            menuSearch.found = response;
+            ctrl.found = response;
           }).catch(function (error) { console.log(error); });
         }
     
-      menuSearch.removeItem = function(itemIndex) {
+      ctrl.removeItem = function(itemIndex) {
         MenuSearchService.removeItem(itemIndex);
       };
 
-      menuSearch.removeItem = function(index) {
+      ctrl.removeItem = function(index) {
         controller.items.splice(index, 1);
       };
     }
