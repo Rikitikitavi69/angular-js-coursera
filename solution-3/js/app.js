@@ -1,71 +1,67 @@
-(function () {
-    'use strict';
-
+(function(){
+    "use strict";
+    
     angular.module('NarrowItDownApp', [])
     .controller('NarrowItDownController', NarrowItDownController)
     .service('MenuSearchService', MenuSearchService)
-    .constant('ApiBasePath', "http://davids-restaurant.herokuapp.com")
-    .directive('foundItems', FoundItemsDirective);
-
-
-    function FoundItemsDirective() {
-        var ddo = {
-            templateUrl: 'foundItems.html',
-            scope: {
-                found: '<',
-                onRemove: '&'
-            },
-            controller: NarrowItDownController,
-            controllerAs: 'menuSearch',
-            bindToController: true
-        };
-        return ddo;
-    }
-
+    .directive('foundItems', foundItemsDirective)
+    .constant('ApiBasePath', "https://davids-restaurant.herokuapp.com");
 
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
-        var menuSearch = this;
+        var narrowItDown = this;
 
-        menuSearch.search = function(searchTerm) {
-            if (searchTerm) {
-                var promise = MenuSearchService.getMatchedMenuItems(searchTerm);
-                promise.then(function (response) {
-                    menuSearch.found = response;
-                })
-                    .catch(function (error) {
-                        menuSearch.found = [];
+        narrowItDown.doNarrow = function() {
+            MenuSearchService.getMatchedMenuItems(narrowItDown.searchTerm)
+            .then(function(foundItems) {
+                narrowItDown.found = foundItems;
+            }, function() {
+                narrowItDown.found = [];
             });
-            } else {
-                menuSearch.found = [];
-            }
-        };
-        menuSearch.removeItem = function(index) {
-            menuSearch.found.splice(index, 1);
-        };
+        }
+
+        narrowItDown.removeItem = function(index) {
+            narrowItDown.found.splice(index, 1);
+        }
+
+        narrowItDown.clear = function() {
+            narrowItDown.searchTerm = "";
+            delete narrowItDown.found;
+        }
     }
 
-
-    MenuSearchService.$inject = ['$http', 'ApiBasePath'];
-    function MenuSearchService($http, ApiBasePath) {
+    MenuSearchService.$inject = ['$http', '$q', 'ApiBasePath'];
+    function MenuSearchService($http, $q, ApiBasePath) {
         var service = this;
 
-        service.getMatchedMenuItems = function (searchTerm) {
-            var response = $http({
-                method: "GET",
-                url: (ApiBasePath + "/menu_items.json")
-            });
-            return response.then(function (result) {
-                var foundItems = [];
-                var menuItems = result.data.menu_items;
-                for (var i = 0; i < menuItems.length; i++) {
-                    var description = menuItems[i].description.toLowerCase();
-                    if (description.indexOf(searchTerm.toLowerCase()) !== -1) {
-                        foundItems.push(menuItems[i]);
-                    }
-                }
-                return foundItems;
-            });
+        service.getMatchedMenuItems = function(searchTerm) {
+            if (!searchTerm) {
+                return $q.reject();
+            }
+
+            return $http
+                .get(ApiBasePath + '/menu_items.json')
+                .then(function(response) {
+                    return response.data.menu_items.filter(function(menuItem) {
+                        return menuItem.description.indexOf(searchTerm) >= 0;
+                    });
+                });
+        }
+    }
+
+    function foundItemsDirective() {
+        return {
+            restrict: 'E',
+            templateUrl: 'templates/foundItems.html',
+            scope: {
+                foundItems: '<',
+                onRemove: '&'
+            },
+            controller: function() {
+
+            },
+            controllerAs: 'foundItemsCtrl',
+            bindToController: true
         };
     }
 
