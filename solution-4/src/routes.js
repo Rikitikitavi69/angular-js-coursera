@@ -14,7 +14,6 @@
             url: '/',
             tempalateUrl: 'src/templates/home.template.html'
         })
-
         .state('categories', {
             url: '/categories',
             tempalateUrl: 'src/templates/categories.template.html',
@@ -25,7 +24,6 @@
                 }]
             }
         })
-
         .state('items', {
             url: '/items/{category}',
             tempalateUrl: 'src/templates/items.template.html',
@@ -35,6 +33,6 @@
                     return MenuDataService.getItemsForCategory($stateParams.category)
                 }]
             }
-        })
+        });
     }
 })();
