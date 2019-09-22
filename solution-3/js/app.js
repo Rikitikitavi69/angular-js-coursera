@@ -15,15 +15,23 @@
       menuSearch.found = [];
 
       menuSearch.search = function() {
+        if (menuSearch.searchTerm === "") {
+            menuSearch.found = [];
+            return;
+          }
           var promise = MenuSearchService.getMatchedMenuItems(menuSearch.searchTerm);
     
-          promise.then(function (response) {
+          promise.then(function(response) {
             menuSearch.found = response;
           }).catch(function (error) { console.log(error); });
         }
     
       menuSearch.removeItem = function(itemIndex) {
         MenuSearchService.removeItem(itemIndex);
+      };
+
+      menuSearch.removeItem = function(index) {
+        controller.items.splice(index, 1);
       };
     }
 
