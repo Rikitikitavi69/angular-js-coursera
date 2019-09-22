@@ -4,11 +4,11 @@
     angular.module('NarrowItDownApp', [])
     .controller('NarrowItDownController', NarrowItDownController)
     .service('MenuSearchService', MenuSearchService)
-    .directive('foundItems', foundItemsDirective)
+    .directive('foundItems', FoundItemsDirective)
     .constant('ApiBasePath', "https://davids-restaurant.herokuapp.com");
 
     
-    function foundItemsDirective() {
+    function FoundItemsDirective() {
         var ddo = {
             templateUrl: 'itemsloader.html',
             scope: {
@@ -24,53 +24,64 @@
 
     function FoundItemsDirectiveController() {
         var items = this;
-    
-        items.isEmpty = function() {
-          return items.found != undefined && items.found.length === 0;
-        }
       }
 
 
-    NarrowItDownController.$inject = ['MenuSearchService'];
-    function NarrowItDownController(MenuSearchService) {
-        var ctrl = this;
-        ctrl.searchTerm = "";
-        ctrl.search = function() {
-            if (ctrl.searchTerm === "") {
-                ctrl.items = [];
-                return;
-            }
-            var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
-            promise.then(function(response) {
-                ctrl.items = response;
-            }).catch(function(error) {
-                console.log("Something went wrong", error);
-            });
-        };  
-        ctrl.removeItem = function(index) {
-            ctrl.items.splice(index, 1);
-        };
-    }
+      NarrowItDownController.$inject = ['MenuSearchService']
+      function NarrowItDownController(MenuSearchService) {
+          var narrow = this;
+          var check = false;
+          narrow.searchTerm = "";
+          narrow.found = []
+          narrow.updatefound = function () {
+              check = true;
+  
+              var promise = MenuSearchService.getMatchedMenuItems(narrow.searchTerm);
+              promise.then(function (result) {
+                  narrow.found = result;
+              }).catch(function (error) { console.log(error); })
+  
+          }
+          narrow.removeItem = function (itemIndex) {
+              MenuSearchService.removeItem(itemIndex);
+  
+          }
+          narrow.noItemsFound = function () {
+              return (narrow.found.length == 0 || narrow.searchTerm === "") && check;
+          }
+      }
+  
 
 
     MenuSearchService.$inject = ['$http', 'ApiBasePath'];
     function MenuSearchService($http, ApiBasePath) {
         var service = this;
-        service.getMatchedMenuItems = function(searchTerm) {
-            return $http({
-              method: 'GET',
-              url: 'https://davids-restaurant.herokuapp.com/menu_items.json'
-            }).then(function (result) {
-                var items = result.data.menu_items;
-                var foundItems = [];
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].description.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
-                        foundItems.push(items[i]);
+        var foundItems = [];
+        var check = false;
+        service.getMatchedMenuItems = function (searchTerm) {
+            if (searchTerm === "")
+                return Promise.resolve([]);
+            var response = $http({
+                method: "GET",
+                url: (ApiBasePath + "/menu_items.json"),
+            });
+
+            return response.then(function (result) {
+                foundItems = [];
+                for (var i = 0; i < result.data.menu_items.length; i++) {
+
+                    var description = result.data.menu_items[i].description;
+                    if (description.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1) {
+                        foundItems.push(result.data.menu_items[i]);
                     }
                 }
-            return foundItems;
-          });
+
+                return foundItems;
+            });
         };
-      }
+        service.removeItem = function (itemIndex) {
+            foundItems.splice(itemIndex, 1);
+        };
+    }
     
 })();
