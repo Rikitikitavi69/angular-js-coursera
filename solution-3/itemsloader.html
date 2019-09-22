@@ -1,9 +1,10 @@
-<div class="items">
-    <br>
-    <div ng-repeat="item in found.items">
-        <span><strong>Name:</strong> {{item.name}}, {{item.short_name}}</span>
-        <span><strong>Description:</strong>{{item.description}}</span>
-        <button ng-click="found.onRemove({id: $index});">Don't want this one!</button>
-    </div>
-    <div class="error" ng-hide="found.items.length">Nothing found</div>
-</div>
+
+</br>
+<h3 ng-if='list.items.length > 0'> {{list.items.length}} items Found  </h3>
+<table>
+  <tr ng-repeat="item in list.items">
+      <td>{{ item.short_name }}</td> <td>{{ item.name }}</td> <td>{{ item.description }}</td> 
+    <td><button ng-click="list.onRemove({index: $index});">Don't want this one!</button></td>
+  </tr>
+</table>
+

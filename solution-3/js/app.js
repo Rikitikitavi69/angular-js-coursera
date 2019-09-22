@@ -15,8 +15,8 @@
                 items: '<',
                 onRemove: '&'
             },
-            controller: NarrowItDownController,
-            controllerAs: 'found',
+            controller: this,
+            controllerAs: 'list',
             bindToController: true
         };
         return items_directive;
