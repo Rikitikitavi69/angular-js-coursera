@@ -9,7 +9,7 @@
 
     
     function foundItemsDirective() {
-        var items_directive = {
+        var ddo = {
             templateUrl: 'itemsloader.html',
             scope: {
                 found: '<',
@@ -19,14 +19,14 @@
             controllerAs: 'items',
             bindToController: true
         };
-        return items_directive;
+        return ddo;
     }
 
     function FoundItemsDirectiveController() {
-        var list = this;
+        var items = this;
     
-        list.isEmpty = function() {
-          return list.found != undefined && list.found.length === 0;
+        items.isEmpty = function() {
+          return items.found != undefined && items.found.length === 0;
         }
       }
 
