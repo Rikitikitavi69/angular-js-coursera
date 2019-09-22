@@ -15,13 +15,20 @@
                 found: '<',
                 onRemove: '&'
             },
-            controller: NarrowItDownController,
+            controller: FoundItemsDirectiveController,
             controllerAs: 'items',
             bindToController: true
         };
         return items_directive;
     }
 
+    function FoundItemsDirectiveController() {
+        var list = this;
+    
+        list.isEmpty = function() {
+          return list.found != undefined && list.found.length === 0;
+        }
+      }
 
 
     NarrowItDownController.$inject = ['MenuSearchService'];
