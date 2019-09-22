@@ -67,7 +67,7 @@
         var items_directive = {
             templateUrl: 'itemsloader.html',
             scope: {
-                items: '<',
+                found: '<',
                 onRemove: '&'
             },
             controller: NarrowItDownController,
