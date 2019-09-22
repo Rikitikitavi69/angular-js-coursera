@@ -15,15 +15,13 @@
         ctrl.found = [];
 
         ctrl.search = function() {
-            if (ctrl.searchTerm === "") {
-                ctrl.found = [];
-                return;
-            }
+            isPresented = true;
+            ctrl.found = [];
 
-            var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
-    
-            promise.then(function(result) {
+            MenuSearchService.getMatchedMenuItems(ctrl.searchTerm)
+            .then(function(result) {
                 ctrl.found = result;
+            promise
             }
             ).catch(function(error) { 
                 console.log(error); 
