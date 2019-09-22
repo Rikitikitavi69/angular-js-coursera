@@ -16,7 +16,7 @@
                 onRemove: '&'
             },
             controller: NarrowItDownController,
-            controllerAs: 'ctrl',
+            controllerAs: 'items',
             bindToController: true
         };
         return items_directive;
@@ -26,33 +26,29 @@
 
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
-      var ctrl = this;
-  
-      ctrl.searchTerm = "";
-  
-      ctrl.search = function() {
-        if (ctrl.searchTerm === "") {
-          ctrl.items = [];
-          return;
-        }
-        var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
-        promise.then(function(response) {
-          ctrl.items = response;
-        })
-        .catch(function(error) {
-          console.log("Something went wrong", error);
-        });
-      };
-  
-      ctrl.removeItem = function(index) {
-        ctrl.items.splice(index, 1);
-      };
+        var ctrl = this;
+        ctrl.searchTerm = "";
+        ctrl.search = function() {
+            if (ctrl.searchTerm === "") {
+                ctrl.items = [];
+                return;
+            }
+            var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
+            promise.then(function(response) {
+                ctrl.items = response;
+            }).catch(function(error) {
+                console.log("Something went wrong", error);
+            });
+        };  
+        ctrl.removeItem = function(index) {
+            ctrl.items.splice(index, 1);
+        };
     }
+
 
     MenuSearchService.$inject = ['$http', 'ApiBasePath'];
     function MenuSearchService($http, ApiBasePath) {
         var service = this;
-
         service.getMatchedMenuItems = function(searchTerm) {
             return $http({
               method: 'GET',

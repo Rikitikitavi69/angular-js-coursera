@@ -2,11 +2,11 @@
 <h3>Menu Search Results</h3>
 
 <ul>
-  <li ng-repeat="item in ctrl.found">{{item.name}}, {{item.short_name}}, {{item.description}}
-    <button class="btn btn-default" ng-click="ctrl.onRemove({index: $index});">
+  <li ng-repeat="item in items.found">{{item.name}}, {{item.short_name}}, {{item.description}}
+    <button class="btn btn-default" ng-click="items.onRemove({index: $index});">
       <span class="glyphicon glyphicon-ok"></span> Don't want this one!
     </button>
   </li>
 </ul>
 
-<p class="text-danger" ng-if="ctrl.found.length === 0">Nothing found</p>
+<p class="text-danger" ng-if="items.found.length === 0">Nothing found</p>
