@@ -11,7 +11,7 @@
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
       var menuSearch = this;
-      menuSearch.found = []
+      menuSearch.found = [];
     
       menuSearch.search = function() {
           var promise = MenuSearchService.getMatchedMenuItems(menuSearch.searchTerm);
@@ -29,28 +29,25 @@
 
     MenuSearchService.$inject = ['$http', 'ApiBasePath'];
     function MenuSearchService($http, ApiBasePath) {
-    var service = this;
-    service.getMatchedMenuItems = function (searchTerm) {
-        var response = $http({
-        method: "GET",
-        url: (ApiBasePath + "/menu_items.json")
-        });
+        var service = this;
+        service.getMatchedMenuItems = function (searchTerm) {
+            var response = $http({
+            method: "GET",
+            url: (ApiBasePath + "/menu_items.json")
+            });
 
-        return response.then(function (result) {
-            // process result and only keep items that match
-            var foundItems = [];
-            var menuItems = result.data.menu_items;
-            for (var i = 0; i < menuItems.length; i++) {
-            var description = menuItems[i].description.toLowerCase();
-            if (description.indexOf(searchTerm.toLowerCase()) !== -1) {
-                foundItems.push(menuItems[i]);
-            }
-            }
-
-            // return processed items
-            return foundItems;
-        });
-    };
+            return response.then(function (result) {
+                var foundItems = [];
+                var menuItems = result.data.menu_items;
+                for (var i = 0; i < menuItems.length; i++) {
+                    var description = menuItems[i].description;
+                    if (description.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1) {
+                        foundItems.push(menuItems[i]);
+                    }
+                }
+                return foundItems;
+            });
+        };
     }
     
 
