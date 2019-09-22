@@ -11,47 +11,53 @@
     function NarrowItDownController(MenuSearchService) {
         var narrowItDown = this;
 
-        narrowItDown.doNarrow = function() {
-            MenuSearchService.getMatchedMenuItems(narrowItDown.searchTerm)
-            .then(function(foundItems) {
-                narrowItDown.found = foundItems;
-            }, function() {
+        narrowItDown.search = function(searchTerm) {
+            if (searchTerm) {
+              var promise = MenuSearchService.getMatchedMenuItems(searchTerm);
+        
+              promise.then(function (response) {
+                narrowItDown.found = response;
+              })
+              .catch(function (error) {
                 narrowItDown.found = [];
-            });
-        }
-
-        narrowItDown.removeItem = function(index) {
+              });
+            } else {
+              narrowItDown.found = [];
+            }
+          };
+        
+          narrowItDown.removeItem = function(index) {
             narrowItDown.found.splice(index, 1);
-        }
-
-        narrowItDown.clear = function() {
-            narrowItDown.searchTerm = "";
-            delete narrowItDown.found;
-        }
+          };
     }
 
     MenuSearchService.$inject = ['$http', '$q', 'ApiBasePath'];
     function MenuSearchService($http, $q, ApiBasePath) {
         var service = this;
+        service.getMatchedMenuItems = function (searchTerm) {
+            var response = $http({
+                method: "GET",
+                url: (ApiBasePath + "/menu_items.json")
+          });
 
-        service.getMatchedMenuItems = function(searchTerm) {
-            if (!searchTerm) {
-                return $q.reject();
+        return response.then(function (result) {
+            var foundItems = [];
+            var menuItems = result.data.menu_items;
+            for (var i = 0; i < menuItems.length; i++) {
+                var description = menuItems[i].description.toLowerCase();
+                if (description.indexOf(searchTerm.toLowerCase()) !== -1) {
+                    foundItems.push(menuItems[i]);
+                }
             }
-
-            return $http
-                .get(ApiBasePath + '/menu_items.json')
-                .then(function(response) {
-                    return response.data.menu_items.filter(function(menuItem) {
-                        return menuItem.description.indexOf(searchTerm) >= 0;
-                    });
-                });
-        }
-    }
+            return foundItems;
+        });
+    };
+}
+    
 
     function foundItemsDirective() {
         return {
-            // restrict: 'E',
+            restrict: 'E',
             templateUrl: 'loader/itemsloaderindicator.template.html',
             scope: {
                 foundItems: '<',
