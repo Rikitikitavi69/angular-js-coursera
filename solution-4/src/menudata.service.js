@@ -15,7 +15,7 @@
             }).then(function(response) {
                 return response.data;
             });
-        }
+        };
 
         service.getItemsForCategory = function(categoryShortName) {
             return $http({
@@ -25,6 +25,6 @@
             }).then(function(response) {
                 return response.data;
             });
-        }
+        };
     }
 })();
