@@ -11,13 +11,14 @@
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
       var menuSearch = this;
+      menuSearch.found = []
     
       menuSearch.search = function() {
           var promise = MenuSearchService.getMatchedMenuItems(menuSearch.searchTerm);
     
           promise.then(function (response) {
             menuSearch.found = response;
-          }).catch(function (error) { menuSearch.found = []; });
+          }).catch(function (error) { console.log(error); });
         }
     
       menuSearch.removeItem = function(itemIndex) {
