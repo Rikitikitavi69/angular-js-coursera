@@ -36,7 +36,6 @@
             MenuSearchService.getMatchedMenuItems(ctrl.searchTerm)
             .then(function(result) {
                 ctrl.found = result;
-            promise
             }
             ).catch(function(error) { 
                 console.log(error); 
@@ -58,18 +57,18 @@
                 method: "GET",
                 url: (ApiBasePath + "/menu_items.json")
             });
-            foundItems = [];
+            found = [];
             response.then(function (result) {
                 
                 var menuItems = result.data.menu_items;
                 for (var i = 0; i < menuItems.length; i++) {
                     var description = menuItems[i].description;
                     if (description.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1) {
-                        foundItems.push(menuItems[i]);
+                        found.push(menuItems[i]);
                     }
                 }    
             });
-            return foundItems;
+            return found;
         };
     }
     
