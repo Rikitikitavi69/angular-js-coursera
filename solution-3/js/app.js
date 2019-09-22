@@ -27,7 +27,6 @@
     NarrowItDownController.$inject = ['MenuSearchService'];
     function NarrowItDownController(MenuSearchService) {
         var ctrl = this;
-        ctrl.searchTerm = "";
         ctrl.found = [];
 
         ctrl.search = function() {
@@ -57,18 +56,17 @@
                 method: "GET",
                 url: (ApiBasePath + "/menu_items.json")
             });
-            found = [];
             response.then(function (result) {
-                
+                found = [];        
                 var menuItems = result.data.menu_items;
                 for (var i = 0; i < menuItems.length; i++) {
-                    var description = menuItems[i].description;
-                    if (description.toLowerCase().indexOf(searchTerm.toLowerCase()) != -1) {
+                    var description = menuItems[i].description.toLowerCase();
+                    if (description.indexOf(searchTerm.toLowerCase()) != -1) {
                         found.push(menuItems[i]);
                     }
-                }    
+                }
+                return found;    
             });
-            return found;
         };
     }
     
