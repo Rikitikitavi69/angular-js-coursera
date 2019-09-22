@@ -12,23 +12,16 @@
     function NarrowItDownController(MenuSearchService) {
       var menuSearch = this;
     
-      menuSearch.search = function(searchTerm) {
-        if (searchTerm) {
-          var promise = MenuSearchService.getMatchedMenuItems(searchTerm);
+      menuSearch.search = function() {
+          var promise = MenuSearchService.getMatchedMenuItems(menuSearch.searchTerm);
     
           promise.then(function (response) {
             menuSearch.found = response;
-          })
-          .catch(function (error) {
-            menuSearch.found = [];
-          });
-        } else {
-          menuSearch.found = [];
+          }).catch(function (error) { menuSearch.found = []; });
         }
-      };
     
-      menuSearch.removeItem = function(index) {
-        menuSearch.found.splice(index, 1);
+      menuSearch.removeItem = function(itemIndex) {
+        MenuSearchService.removeItem(itemIndex);
       };
     }
 
