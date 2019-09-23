@@ -4,7 +4,7 @@
     angular.module('data')
       .service('MenuDataService', MenuDataService);
 
-    MenuDataService.$inject = ['$http', 'ApiBasePath']
+    MenuDataService.$inject = ['$http', 'ApiBasePath'];
     function MenuDataService($http, ApiBasePath) {
         var service = this;
 
