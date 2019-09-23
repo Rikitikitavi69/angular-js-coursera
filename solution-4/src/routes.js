@@ -14,7 +14,7 @@
             url: '/',
             tempalateUrl: 'src/templates/home.template.html'
         })
-        .state('categories', {
+        .state('categories_', {
             url: '/categories',
             tempalateUrl: 'src/templates/categories.template.html',
             controller: 'CategoriesController as categoriesCtrl',
