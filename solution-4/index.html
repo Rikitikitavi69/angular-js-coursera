@@ -4,8 +4,8 @@
         <meta charset="utf-8"/>
         <title>Restaurant</title>
 
-        <script src="lib/angular.min.js"></script>
-        <script src="lib/angular-ui-router.min.js"></script>
+        <script src="angular.min.js"></script>
+        <script src="angular-ui-router.min.js"></script>
         
         <script src="src/menuapp.module.js"></script>
         <script src="src/data.module.js"></script>
@@ -20,7 +20,10 @@
 
     </head>
     <body ng-app='MenuApp'>
-        <h1>Welcome to my Restaurant</h1>
-        <ui-view></ui-view>
+        <h1>Welcome to my Restaurant!</h1>
+        <div>
+            <ui-view></ui-view>
+        </div>
+
     </body>
 </html>

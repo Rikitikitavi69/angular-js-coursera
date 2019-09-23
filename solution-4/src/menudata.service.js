@@ -2,29 +2,34 @@
     'use strict';
     
     angular.module('data')
-      .service('MenuDataService', MenuDataService);
-
+    .service('MenuDataService', MenuDataService);
+    
     MenuDataService.$inject = ['$http', 'ApiBasePath'];
     function MenuDataService($http, ApiBasePath) {
         var service = this;
-
-        service.getAllCategories = function () {
+    
+        service.getAllCategories = function() {
             return $http({
-                method: 'GET',
+                method: "GET",
                 url: (ApiBasePath + "/categories.json")
-            }).then(function(response) {
-                return response.data;
+            }).then(function (response) {
+                console.log("Success: getAllCategories");
+            return response.data;
             });
         };
-
+        
         service.getItemsForCategory = function(categoryShortName) {
             return $http({
-                method: 'GET',
+                method: "GET",
                 url: (ApiBasePath + "/menu_items.json"),
-                params: {category: categoryShortName}
-            }).then(function(response) {
-                return response.data;
+                params: {
+                    category: categoryShortName
+                }
+            }).then(function (response) {
+                console.log("Success: getItemsForCategory");
+            return response.data;
             });
         };
     }
+    
 })();
