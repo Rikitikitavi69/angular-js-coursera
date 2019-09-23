@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='MenuApp'>
+<html>
     <head>
         <meta charset="utf-8"/>
         <title>Restaurant</title>
@@ -10,7 +10,7 @@
         <script src="src/menuapp.module.js"></script>
         <script src="src/data.module.js"></script>
 
-        <script src="src/routes.js"></script>
+        <script src="routes.js"></script>
 
         <script src="src/categories.component.js"></script>
         <script src="src/items.component.js"></script>
@@ -19,7 +19,7 @@
         <script src="src/menudata.service.js"></script>
 
     </head>
-    <body>
+    <body ng-app='MenuApp'>
         <h1>Welcome to my Restaurant</h1>
         <ui-view></ui-view>
     </body>
