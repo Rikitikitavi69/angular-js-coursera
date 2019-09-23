@@ -15,8 +15,8 @@
             tempalateUrl: 'src/templates/home.template.html'
         })
         .state('categoryList', {
-            url: '/categories',
-            tempalateUrl: 'src/templates/categories.template.html',
+            url: '/category-list',
+            tempalateUrl: 'src/templates/category-list.template.html',
             controller: 'CategoriesController as categoriesCtrl',
             resolve: {
                 items: ['MenuDataService', function(MenuDataService) {
