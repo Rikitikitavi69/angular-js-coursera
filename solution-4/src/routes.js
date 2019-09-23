@@ -14,12 +14,12 @@
             url: '/',
             tempalateUrl: 'src/templates/home.template.html'
         })
-        .state('categories_', {
+        .state('categoryList', {
             url: '/categories',
             tempalateUrl: 'src/templates/categories.template.html',
             controller: 'CategoriesController as categoriesCtrl',
             resolve: {
-                categories: ['MenuDataService', function(MenuDataService) {
+                items: ['MenuDataService', function(MenuDataService) {
                     return MenuDataService.getAllCategories();
                 }]
             }
