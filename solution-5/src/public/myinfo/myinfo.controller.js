@@ -1,15 +1,14 @@
 (function () {
     "use strict";
-    
+  
     angular.module('public')
     .controller('MyInfoController', MyInfoController);
     
-    MyInfoController.$inject = ['SignUpDataService', 'ApiPath'];
-    
-    function MyInfoController(SignUpDataService, ApiPath) {
-      var $ctrl = this;
-      $ctrl.userPref = SignUpDataService.getUserPref();
-      $ctrl.basePath = ApiPath;
+    MyInfoController.$inject = ['MyInfoService', 'ApiPath'];
+    function MyInfoController(MyInfoService, ApiPath) {
+        var $ctrl = this;
+        $ctrl.info = MyInfoService.getInfo();
+        $ctrl.ApiPath = ApiPath;
     }
-    
+  
 })();
